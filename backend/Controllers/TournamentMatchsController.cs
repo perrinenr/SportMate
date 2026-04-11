@@ -7,41 +7,41 @@ namespace backend.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class UsersController : ControllerBase
+    public class TournamentMatchesController : ControllerBase
     {
         private readonly AppDbContext _context;
 
-        public UsersController(AppDbContext context)
+        public TournamentMatchesController(AppDbContext context)
         {
             _context = context;
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<User>>> GetAll()
+        public async Task<ActionResult<IEnumerable<TournamentMatch>>> GetAll()
         {
-            return await _context.Users.ToListAsync();
+            return await _context.TournamentMatches.ToListAsync();
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<User>> GetById(int id)
+        public async Task<ActionResult<TournamentMatch>> GetById(int id)
         {
-            var item = await _context.Users.FindAsync(id);
+            var item = await _context.TournamentMatches.FindAsync(id);
             if (item == null) return NotFound();
             return item;
         }
 
         [HttpPost]
-        public async Task<ActionResult<User>> Create(User item)
+        public async Task<ActionResult<TournamentMatch>> Create(TournamentMatch item)
         {
             item.CreatedAt = DateTime.Now;
-            _context.Users.Add(item);
+            _context.TournamentMatches.Add(item);
             await _context.SaveChangesAsync();
 
             return CreatedAtAction(nameof(GetById), new { id = item.Id }, item);
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> Update(int id, User item)
+        public async Task<IActionResult> Update(int id, TournamentMatch item)
         {
             if (id != item.Id) return BadRequest();
 
@@ -54,10 +54,10 @@ namespace backend.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id)
         {
-            var item = await _context.Users.FindAsync(id);
+            var item = await _context.TournamentMatches.FindAsync(id);
             if (item == null) return NotFound();
 
-            _context.Users.Remove(item);
+            _context.TournamentMatches.Remove(item);
             await _context.SaveChangesAsync();
 
             return NoContent();

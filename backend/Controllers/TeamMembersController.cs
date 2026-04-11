@@ -7,41 +7,41 @@ namespace backend.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class UsersController : ControllerBase
+    public class TeamMembersController : ControllerBase
     {
         private readonly AppDbContext _context;
 
-        public UsersController(AppDbContext context)
+        public TeamMembersController(AppDbContext context)
         {
             _context = context;
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<User>>> GetAll()
+        public async Task<ActionResult<IEnumerable<TeamMember>>> GetAll()
         {
-            return await _context.Users.ToListAsync();
+            return await _context.TeamMembers.ToListAsync();
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<User>> GetById(int id)
+        public async Task<ActionResult<TeamMember>> GetById(int id)
         {
-            var item = await _context.Users.FindAsync(id);
+            var item = await _context.TeamMembers.FindAsync(id);
             if (item == null) return NotFound();
             return item;
         }
 
         [HttpPost]
-        public async Task<ActionResult<User>> Create(User item)
+        public async Task<ActionResult<TeamMember>> Create(TeamMember item)
         {
-            item.CreatedAt = DateTime.Now;
-            _context.Users.Add(item);
+            item.JoinedAt = DateTime.Now;
+            _context.TeamMembers.Add(item);
             await _context.SaveChangesAsync();
 
             return CreatedAtAction(nameof(GetById), new { id = item.Id }, item);
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> Update(int id, User item)
+        public async Task<IActionResult> Update(int id, TeamMember item)
         {
             if (id != item.Id) return BadRequest();
 
@@ -54,10 +54,10 @@ namespace backend.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id)
         {
-            var item = await _context.Users.FindAsync(id);
+            var item = await _context.TeamMembers.FindAsync(id);
             if (item == null) return NotFound();
 
-            _context.Users.Remove(item);
+            _context.TeamMembers.Remove(item);
             await _context.SaveChangesAsync();
 
             return NoContent();
