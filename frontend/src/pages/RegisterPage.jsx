@@ -1,6 +1,9 @@
 import { useState } from "react";
+import { Link } from "react-router";
 
 export default function RegisterPage() {
+  const [showPassword, setShowPassword] = useState(false);
+
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
@@ -79,25 +82,25 @@ export default function RegisterPage() {
 
   return (
     <div className="bg-surface font-body text-on-surface selection:bg-primary-fixed selection:text-primary min-h-screen flex flex-col">
-      <header className="bg-white/70 backdrop-blur-xl fixed top-0 left-0 w-full z-50 flex justify-between items-center px-8 h-20">
-        <div className="text-2xl font-bold tracking-tighter text-[#1A237E]">
+      <header className="fixed top-0 w-full z-50 flex justify-between items-center px-8 h-20 bg-[rgba(252,249,248,0.7)] backdrop-blur-[24px]">
+        <div className="text-2xl font-headline font-extrabold tracking-tighter text-primary">
           SportMate
         </div>
 
-        <nav className="hidden md:flex items-center gap-8">
+        <div className="hidden md:flex gap-8">
           <a
-            className="text-black/60 hover:text-[#1A237E] transition-colors text-sm tracking-wide"
+            className="font-label text-sm font-medium text-on-surface-variant hover:text-primary transition-colors"
             href="#"
           >
             Support
           </a>
           <a
-            className="text-black/60 hover:text-[#1A237E] transition-colors text-sm tracking-wide"
+            className="font-label text-sm font-medium text-on-surface-variant hover:text-primary transition-colors"
             href="#"
           >
             Help Center
           </a>
-        </nav>
+        </div>
       </header>
 
       <main className="flex-grow pt-20 flex flex-col items-center justify-center relative overflow-hidden">
@@ -114,40 +117,36 @@ export default function RegisterPage() {
               </span>
 
               <h1 className="text-5xl md:text-6xl font-headline leading-none text-primary tracking-tight">
-                SportConnect <br />
+                SportMate <br />
               </h1>
 
               <p className="text-lg text-on-surface-variant max-w-md">
-                Join the elite circle of high-performance athletes and managers.
-                Centralize your sporting career with editorial precision.
+                Looking for players for your next game? SportMate helps you find teammates, join matches, and build your sports community.
               </p>
             </div>
 
             <div className="grid grid-cols-2 gap-4">
               <div className="bg-surface-container-low p-6 rounded-xl space-y-2">
                 <span className="material-symbols-outlined text-primary">
-                  insights
+                  group
                 </span>
                 <h3 className="font-headline font-bold text-primary">
-                  Live Metrics
+                  Find Players
                 </h3>
                 <p className="text-xs text-on-surface-variant">
-                  Real-time performance analytics tracked with fintech precision.
+                  Quickly find teammates and players near you for your favorite sports.
                 </p>
               </div>
 
               <div className="bg-surface-container-low p-6 rounded-xl space-y-2">
-                <span
-                  className="material-symbols-outlined text-tertiary-fixed-dim"
-                  style={{ fontVariationSettings: "'FILL' 1" }}
-                >
-                  verified_user
+               <span className="material-symbols-outlined text-primary">
+                  sports_soccer
                 </span>
                 <h3 className="font-headline font-bold text-primary">
-                  Secure Vault
+                  Create Games
                 </h3>
                 <p className="text-xs text-on-surface-variant">
-                  Proprietary encryption for contract and bio management.
+                 Organize a match, invite players, and manage your game in one place.
                 </p>
               </div>
             </div>
@@ -175,7 +174,7 @@ export default function RegisterPage() {
                       name="firstName"
                       value={formData.firstName}
                       onChange={handleChange}
-                      placeholder="Perrine"
+                      placeholder="First Name"
                       type="text"
                     />
                   </div>
@@ -189,7 +188,7 @@ export default function RegisterPage() {
                       name="lastName"
                       value={formData.lastName}
                       onChange={handleChange}
-                      placeholder="Nassar"
+                      placeholder="Last Name"
                       type="text"
                     />
                   </div>
@@ -204,24 +203,36 @@ export default function RegisterPage() {
                     name="email"
                     value={formData.email}
                     onChange={handleChange}
-                    placeholder="perrinenassar@gmail.com"
+                    placeholder="name@gmail.com"
                     type="email"
                   />
                 </div>
-
                 <div className="space-y-2">
-                  <label className="text-sm font-bold text-primary uppercase tracking-wider block">
-                    Password
-                  </label>
-                  <input
-                    className="w-full bg-surface-container-low border-none rounded-xl px-4 py-3.5 text-on-surface focus:ring-2 focus:ring-primary/20 transition-all placeholder:text-outline-variant"
-                    name="password"
-                    value={formData.password}
-                    onChange={handleChange}
-                    placeholder="••••••••••"
-                    type="password"
-                  />
-                </div>
+                <label className="text-sm font-bold text-primary uppercase tracking-wider block">
+                  Password
+                </label>
+
+            <div className="relative">
+            <input
+              className="w-full bg-surface-container-low border-none rounded-xl px-4 py-3.5 pr-12 text-on-surface focus:ring-2 focus:ring-primary/20 transition-all placeholder:text-outline-variant"
+              name="password"
+              type={showPassword ? "text" : "password"}
+              value={formData.password}
+              onChange={handleChange}
+              placeholder="••••••••••"
+            />
+
+            <button
+              type="button"
+              onClick={() => setShowPassword(!showPassword)}
+              className="absolute inset-y-0 right-4 flex items-center text-outline hover:text-primary"
+            >
+           <span className="material-symbols-outlined text-[20px]">
+               {showPassword ? "visibility_off" : "visibility"}
+            </span>
+           </button>
+          </div>
+        </div>
 
                 <div className="flex items-start gap-3 py-2">
                   <input
@@ -272,12 +283,12 @@ export default function RegisterPage() {
               <div className="mt-8 pt-8 border-t border-surface-container flex justify-center">
                 <p className="text-sm text-on-surface-variant">
                   Already have an account?
-                  <a
-                    className="text-primary font-bold hover:text-primary-container transition-colors ml-1"
-                    href="#"
+                  <Link
+                      className="text-primary font-bold hover:text-primary-container transition-colors ml-1"
+                      to="/login"
                   >
                     Login
-                  </a>
+                  </Link>
                 </p>
               </div>
             </div>
