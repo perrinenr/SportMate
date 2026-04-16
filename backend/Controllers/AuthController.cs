@@ -65,5 +65,40 @@ namespace backend.Controllers
                 }
             });
         }
+        [HttpPost("login")]
+        public async Task<IActionResult> Login([FromBody] LoginDto dto)
+        {
+            if (!ModelState.IsValid)
+            return BadRequest(ModelState);
+
+            string email = dto.Email.Trim().ToLower();
+
+            var user = await _context.Users.FirstOrDefaultAsync(u => u.Email.ToLower() == email);
+
+            if (user == null)
+            {
+                return Unauthorized(new { message = "Invalid email or password." });
+            }
+
+            var result = _passwordHasher.VerifyHashedPassword(user, user.PasswordHash, dto.Password);
+
+            if (result == PasswordVerificationResult.Failed)
+            {
+                return Unauthorized(new { message = "Invalid email or password." });
+            }
+
+            return Ok(new
+            {
+                message = "Login successful.",
+                user = new
+                {
+                    user.Id,
+                    user.FirstName,
+                    user.LastName,
+                    user.Email,
+                    user.CreatedAt
+                }
+            });
+        }
     }
 }
