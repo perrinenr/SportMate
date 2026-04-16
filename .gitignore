@@ -1,8 +1,1 @@
 SportMate.sln
-backend/bin
-backend/obj
-backend/Properties
-backend/appsettings.Development.json
-backend/appsettings.json
-backend/backend.csproj
-backend/backend.http
