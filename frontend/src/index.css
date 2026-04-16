@@ -12,3 +12,8 @@
 .bg-kinetic-gradient {
   background: linear-gradient(135deg, #000666 0%, #1a237e 100%);
 }
+
+input[type="password"]::-ms-reveal,
+input[type="password"]::-ms-clear {
+  display: none;
+}
