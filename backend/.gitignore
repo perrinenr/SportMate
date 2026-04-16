@@ -1,0 +1,8 @@
+SportMate.sln
+/bin
+/obj
+/Properties
+/appsettings.Development.json
+/appsettings.json
+/backend.csproj
+/backend.http
