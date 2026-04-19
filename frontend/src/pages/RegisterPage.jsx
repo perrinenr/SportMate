@@ -121,7 +121,8 @@ export default function RegisterPage() {
               </h1>
 
               <p className="text-lg text-on-surface-variant max-w-md">
-                Looking for players for your next game? SportMate helps you find teammates, join matches, and build your sports community.
+                Looking for players for your next game?
+                SportMate helps you find teammates, join matches, and build your sports community.
               </p>
             </div>
 
