@@ -1,7 +1,9 @@
 import { useState } from "react";
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router-dom";
 
 export default function LoginPage() {
+  const navigate = useNavigate();
+
   const [showPassword, setShowPassword] = useState(false);
 
   const [formData, setFormData] = useState({
@@ -41,6 +43,8 @@ export default function LoginPage() {
         headers: {
           "Content-Type": "application/json",
         },
+        // si ton backend utilise cookies/session, décommente cette ligne
+        // credentials: "include",
         body: JSON.stringify({
           email: formData.email,
           password: formData.password,
@@ -56,6 +60,9 @@ export default function LoginPage() {
 
       setMessage(data.message || "Login success.");
       console.log(data.user);
+
+      // redirection après login réussi
+      navigate("/dashboard");
     } catch (err) {
       console.error(err);
       setError("Cannot connect to backend.");
@@ -112,14 +119,14 @@ export default function LoginPage() {
                 Email Address
               </label>
               <input
-                  className="w-full bg-surface-container-low border-none rounded-xl px-4 py-3.5 pr-12 text-on-surface focus:ring-2 focus:ring-primary/20 transition-all placeholder:text-outline-variant"
-                  id="email"
-                  name="email"
-                  type="email"
-                  placeholder="name@gmail.com"
-                  value={formData.email}
-                  onChange={handleChange}
-                />
+                className="w-full bg-surface-container-low border-none rounded-xl px-4 py-3.5 pr-12 text-on-surface focus:ring-2 focus:ring-primary/20 transition-all placeholder:text-outline-variant"
+                id="email"
+                name="email"
+                type="email"
+                placeholder="name@gmail.com"
+                value={formData.email}
+                onChange={handleChange}
+              />
             </div>
 
             <div className="space-y-2">
@@ -131,6 +138,7 @@ export default function LoginPage() {
                   Password
                 </label>
               </div>
+
               <div className="relative">
                 <input
                   id="password"
@@ -140,7 +148,6 @@ export default function LoginPage() {
                   value={formData.password}
                   onChange={handleChange}
                   className="w-full bg-surface-container-low border-none rounded-xl px-4 py-3.5 pr-12 text-on-surface focus:ring-2 focus:ring-primary/20 transition-all placeholder:text-outline-variant"
-
                 />
 
                 <button
@@ -167,12 +174,12 @@ export default function LoginPage() {
             </button>
           </form>
 
-            <div className="mt-8 pt-8 border-t border-surface-container flex justify-center">
+          <div className="mt-8 pt-8 border-t border-surface-container flex justify-center">
             <p className="font-body text-sm text-on-surface-variant">
               Don't have an account?
               <Link
-                  className="font-bold text-primary hover:text-secondary-container transition-colors ml-1"
-                  to="/register"
+                className="font-bold text-primary hover:text-secondary-container transition-colors ml-1"
+                to="/register"
               >
                 Create Account
               </Link>
