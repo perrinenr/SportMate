@@ -1,8 +1,7 @@
 import React from "react";
-import { Link , useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 export default function CreateTeamPage() {
-  const navigate = useNavigate();
   return (
     <div className="bg-surface font-body text-on-surface flex min-h-screen">
       {/* Sidebar */}
@@ -60,16 +59,6 @@ export default function CreateTeamPage() {
               Team Builder
             </span>
 
-            <div className="relative">
-              <span className="absolute inset-y-0 left-3 flex items-center text-stone-400">
-                <span className="material-symbols-outlined text-sm">search</span>
-              </span>
-              <input
-                className="bg-stone-100 border-none rounded-full py-1.5 pl-10 pr-4 text-sm focus:ring-2 focus:ring-primary/20 w-64 font-body"
-                placeholder="Search teams, players or matches..."
-                type="text"
-              />
-            </div>
           </div>
 
           <div className="flex items-center gap-4">

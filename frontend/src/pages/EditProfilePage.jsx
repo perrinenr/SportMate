@@ -51,15 +51,6 @@ export default function EditProfilePage() {
             Profile
           </Link>
         </nav>
-
-        <div className="mt-auto">
-          <Link
-            to="/matches/create"
-            className="block w-full text-center bg-gradient-primary text-on-primary py-4 rounded-xl font-headline font-bold shadow-lg active:scale-95 transition-transform"
-          >
-            Create Match
-          </Link>
-        </div>
       </aside>
 
       {/* Main */}
@@ -71,16 +62,6 @@ export default function EditProfilePage() {
               Profile Studio
             </span>
 
-            <div className="relative">
-              <span className="absolute inset-y-0 left-3 flex items-center text-stone-400">
-                <span className="material-symbols-outlined text-sm">search</span>
-              </span>
-              <input
-                className="bg-stone-100 border-none rounded-full py-1.5 pl-10 pr-4 text-sm focus:ring-2 focus:ring-primary/20 w-64 font-body"
-                placeholder="Search matches, teams, players..."
-                type="text"
-              />
-            </div>
           </div>
 
           <div className="flex items-center gap-4">

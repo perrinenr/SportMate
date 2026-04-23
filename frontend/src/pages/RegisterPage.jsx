@@ -1,7 +1,9 @@
 import { useState } from "react";
-import { Link } from "react-router";
+import { Link , useNavigate } from "react-router";
 
 export default function RegisterPage() {
+  const navigate = useNavigate();
+
   const [showPassword, setShowPassword] = useState(false);
 
   const [formData, setFormData] = useState({
@@ -72,6 +74,8 @@ export default function RegisterPage() {
         email: "",
         password: "",
       });
+
+      navigate("/dashboard");
     } catch (err) {
       setError("Cannot connect to backend.");
       console.error(err);
