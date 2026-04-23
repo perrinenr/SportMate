@@ -54,7 +54,7 @@ export default function MatchesPage() {
             to="/matches/create"
             className="block w-full text-center bg-[#10207a] text-white py-4 rounded-xl font-headline font-bold shadow-lg active:scale-95 transition-transform hover:bg-[#0b1760]"
             >
-            Create Match
+            + Create Match
           </Link>
         </div>
       </aside>
@@ -67,17 +67,6 @@ export default function MatchesPage() {
             <span className="font-headline font-bold text-xl tracking-tight text-indigo-950">
               Matches
             </span>
-
-            <div className="relative">
-              <span className="absolute inset-y-0 left-3 flex items-center text-stone-400">
-                <span className="material-symbols-outlined text-sm">search</span>
-              </span>
-              <input
-                className="bg-stone-100 border-none rounded-full py-1.5 pl-10 pr-4 text-sm focus:ring-2 focus:ring-primary/20 w-80 font-body"
-                placeholder="Search matches, venues, or athletes..."
-                type="text"
-              />
-            </div>
           </div>
 
           <div className="flex items-center gap-5">

@@ -48,15 +48,6 @@ export default function MatchDetailsPage() {
             Profile
           </Link>
         </nav>
-
-        <div className="mt-auto">
-          <Link
-            to="/matches/create"
-            className="block w-full text-center bg-gradient-primary text-on-primary py-4 rounded-xl font-headline font-bold shadow-lg active:scale-95 transition-transform"
-          >
-            Create Match
-          </Link>
-        </div>
       </aside>
 
       {/* Main */}
@@ -67,17 +58,6 @@ export default function MatchDetailsPage() {
             <span className="font-headline font-bold text-xl tracking-tight text-indigo-950">
               Match Hub
             </span>
-
-            <div className="relative">
-              <span className="absolute inset-y-0 left-3 flex items-center text-stone-400">
-                <span className="material-symbols-outlined text-sm">search</span>
-              </span>
-              <input
-                className="bg-stone-100 border-none rounded-full py-1.5 pl-10 pr-4 text-sm focus:ring-2 focus:ring-primary/20 w-72 font-body"
-                placeholder="Search matches, players, or venues..."
-                type="text"
-              />
-            </div>
           </div>
 
           <div className="flex items-center gap-4">
@@ -324,59 +304,9 @@ export default function MatchDetailsPage() {
                   </div>
                 </div>
 
-                <button className="w-full bg-gradient-primary text-on-primary py-4 px-6 rounded-xl font-headline font-bold flex items-center justify-center gap-2 shadow-lg active:scale-95 transition-all mb-4">
+                <button className="block w-full text-center bg-[#10207a] text-white py-4 rounded-xl font-headline font-bold shadow-lg active:scale-95 transition-transform hover:bg-[#0b1760]">
                   Join Match
                 </button>
-
-                <button className="w-full bg-white border border-stone-200 text-primary py-4 px-6 rounded-xl font-headline font-bold flex items-center justify-center gap-2 hover:bg-surface-container-low transition-all">
-                  <span className="material-symbols-outlined">share</span>
-                  Invite Teammates
-                </button>
-
-                <p className="text-center text-[10px] text-stone-400 mt-6 uppercase font-bold tracking-widest">
-                  Organized by Chelsea Football Club Academy
-                </p>
-              </div>
-
-              <div className="bg-surface-container-lowest rounded-xl overflow-hidden shadow-sm">
-                <div className="h-52 w-full bg-surface-container-high relative">
-                  <img
-                    alt="Map View"
-                    className="w-full h-full object-cover opacity-60"
-                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuBROaFpmyDLDRp4cDRJRZrXQjr4VAIo0Z7lxS2FYGYIDPTXRhUpbCFEcSwfp7JvSeMugMSgyIW1ZbON_NddFgDZQwlCCDlXCqfSstnTi8KToueELHIBkbW8Ohky-HkxPDitMTUkaXr6sC7NW0L08eDJWWAZFAXe4qSVKvx-8_W6swV-XmdIDOvGPmWgFHKrEUAY5YCbEymEB4HroPhfvXBjZScObJintLPeTKDpRqqBY5EwmckY7Y6h2PHXeNo4v8EybLR61kbVspuw"
-                  />
-                  <div className="absolute inset-0 flex items-center justify-center">
-                    <div className="bg-white p-3 rounded-full shadow-lg">
-                      <span
-                        className="material-symbols-outlined text-primary text-3xl"
-                        style={{ fontVariationSettings: "'FILL' 1" }}
-                      >
-                        location_on
-                      </span>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="p-6">
-                  <h4 className="font-headline font-bold mb-1 text-primary">
-                    Starlight Arena
-                  </h4>
-                  <p className="text-sm text-stone-500 leading-relaxed">
-                    24 Kinetic Way, Olympic District
-                    <br />
-                    Greater London, SE1 8NW
-                  </p>
-
-                  <a
-                    className="inline-flex items-center gap-1 text-primary text-sm font-bold mt-4 hover:underline"
-                    href="#"
-                  >
-                    Get Directions
-                    <span className="material-symbols-outlined text-sm">
-                      open_in_new
-                    </span>
-                  </a>
-                </div>
               </div>
             </div>
           </section>
