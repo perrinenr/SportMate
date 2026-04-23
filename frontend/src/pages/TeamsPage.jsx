@@ -54,7 +54,7 @@ export default function TeamsPage() {
             to="/teams/create"
             className="block w-full text-center bg-[#10207a] text-white py-4 rounded-xl font-headline font-bold shadow-lg active:scale-95 transition-transform hover:bg-[#0b1760]"
             >
-            Create Team
+            + Create Team
           </Link>
         </div>
       </aside>
@@ -67,17 +67,6 @@ export default function TeamsPage() {
             <span className="font-headline font-bold text-xl tracking-tight text-indigo-950">
               Teams
             </span>
-
-            <div className="relative">
-              <span className="absolute inset-y-0 left-3 flex items-center text-stone-400">
-                <span className="material-symbols-outlined text-sm">search</span>
-              </span>
-              <input
-                className="bg-stone-100 border-none rounded-full py-1.5 pl-10 pr-4 text-sm focus:ring-2 focus:ring-primary/20 w-80 font-body"
-                placeholder="Search teams, sports, or members..."
-                type="text"
-              />
-            </div>
           </div>
 
           <div className="flex items-center gap-4">
@@ -124,14 +113,6 @@ export default function TeamsPage() {
                 recent franchise activity.
               </p>
             </div>
-
-            <Link
-              to="/teams/create"
-              className="inline-flex items-center gap-2 bg-gradient-primary text-on-primary px-6 py-4 rounded-xl font-headline font-bold shadow-lg active:scale-95 transition-all"
-            >
-              <span className="material-symbols-outlined">group_add</span>
-              Create Team
-            </Link>
           </section>
 
           {/* Top cards */}

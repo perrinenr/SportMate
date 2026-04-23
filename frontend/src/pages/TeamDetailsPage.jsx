@@ -36,18 +36,11 @@ export default function TeamDetailsPage() {
             
           </Link>
         </nav>
-        <div className="mt-auto">
-          <Link to="/matches/create" className="w-full bg-gradient-primary text-on-primary py-4 rounded-xl font-headline font-bold shadow-lg active:scale-95 transition-transform">Create Match</Link>
-        </div>
       </aside>
       <main className="ml-64 flex-grow min-h-screen">
         <header className="sticky top-0 z-40 flex justify-between items-center px-12 w-full h-16 bg-stone-50/70 backdrop-blur-xl">
           <div className="flex items-center gap-6">
-            <span className="font-headline font-bold text-xl tracking-tight text-indigo-950">The Kinetic Curator</span>
-            <div className="relative">
-              <span className="absolute inset-y-0 left-3 flex items-center text-stone-400"><span className="material-symbols-outlined text-sm" data-icon="search">search</span></span>
-              <input className="bg-stone-100 border-none rounded-full py-1.5 pl-10 pr-4 text-sm focus:ring-2 focus:ring-primary/20 w-64 font-body" placeholder="Search athletes or teams..." type="text" />
-            </div>
+            <span className="font-headline font-bold text-xl tracking-tight text-indigo-950">Team Hub</span>
           </div>
           <div className="flex items-center gap-4">
             <button className="p-2 text-stone-500 hover:bg-stone-200/50 rounded-full transition-colors active:scale-95"><span className="material-symbols-outlined" data-icon="notifications">notifications</span></button>
@@ -77,7 +70,7 @@ export default function TeamDetailsPage() {
               </div>
             </div>
             <div className="col-span-4 flex justify-end pb-2">
-              <button className="bg-gradient-primary text-on-primary px-10 py-5 rounded-xl font-headline font-bold text-lg shadow-[0_12px_40px_rgba(0,6,102,0.15)] active:scale-95 transition-all">Join Team</button>
+              <button className="block w-full text-center bg-[#10207a] text-white py-4 rounded-xl font-headline font-bold shadow-lg active:scale-95 transition-transform hover:bg-[#0b1760]">Join Team</button>
             </div>
           </section>
           <section className="grid grid-cols-12 gap-6">

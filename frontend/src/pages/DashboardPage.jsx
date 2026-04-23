@@ -58,17 +58,6 @@ export default function DashboardPage() {
             <span className="font-headline font-bold text-xl tracking-tight text-indigo-950">
               Welcome
             </span>
-
-            <div className="relative">
-              <span className="absolute inset-y-0 left-3 flex items-center text-stone-400">
-                <span className="material-symbols-outlined text-sm">search</span>
-              </span>
-              <input
-                className="bg-stone-100 border-none rounded-full py-1.5 pl-10 pr-4 text-sm focus:ring-2 focus:ring-primary/20 w-64 font-body"
-                placeholder="Search tournaments, teams, or players..."
-                type="text"
-              />
-            </div>
           </div>
 
           <div className="flex items-center gap-4">
