@@ -2,7 +2,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace backend.DTOs
 {
-    public class RegisterDto
+    public class UpdateProfileDto
     {
         [Required]
         public string FirstName { get; set; } = null!;
@@ -10,13 +10,9 @@ namespace backend.DTOs
         [Required]
         public string LastName { get; set; } = null!;
 
-        [Required, EmailAddress]
-        public string Email { get; set; } = null!;
-
-        [Required, MinLength(8)]
-        public string Password { get; set; } = null!;
-
         public string? Phone { get; set; }
+        public string? ProfileImage { get; set; }
+        public string? Bio { get; set; }
         public int? CityId { get; set; }
     }
 }
