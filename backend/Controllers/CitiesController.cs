@@ -17,49 +17,42 @@ namespace backend.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<City>>> GetAll()
+        public async Task<IActionResult> GetAll()
         {
-            return await _context.Cities.ToListAsync();
+            var cities = await _context.Cities
+                .OrderBy(c => c.Name)
+                .Select(c => new { c.Id, c.Name })
+                .ToListAsync();
+
+            return Ok(cities);
         }
 
-        [HttpGet("{id}")]
-        public async Task<ActionResult<City>> GetById(int id)
+        [HttpGet("{id:int}")]
+        public async Task<IActionResult> GetById(int id)
         {
-            var item = await _context.Cities.FindAsync(id);
-            if (item == null) return NotFound();
-            return item;
+            var city = await _context.Cities
+                .Where(c => c.Id == id)
+                .Select(c => new { c.Id, c.Name })
+                .FirstOrDefaultAsync();
+
+            if (city == null) return NotFound(new { message = "City not found." });
+            return Ok(city);
         }
 
         [HttpPost]
-        public async Task<ActionResult<City>> Create(City item)
+        public async Task<IActionResult> Create([FromBody] City item)
         {
-            _context.Cities.Add(item);
+            if (string.IsNullOrWhiteSpace(item.Name)) return BadRequest(new { message = "City name is required." });
+
+            var name = item.Name.Trim();
+            if (await _context.Cities.AnyAsync(c => c.Name.ToLower() == name.ToLower()))
+                return BadRequest(new { message = "City already exists." });
+
+            var city = new City { Name = name };
+            _context.Cities.Add(city);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction(nameof(GetById), new { id = item.Id }, item);
-        }
-
-        [HttpPut("{id}")]
-        public async Task<IActionResult> Update(int id, City item)
-        {
-            if (id != item.Id) return BadRequest();
-
-            _context.Entry(item).State = EntityState.Modified;
-            await _context.SaveChangesAsync();
-
-            return NoContent();
-        }
-
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> Delete(int id)
-        {
-            var item = await _context.Cities.FindAsync(id);
-            if (item == null) return NotFound();
-
-            _context.Cities.Remove(item);
-            await _context.SaveChangesAsync();
-
-            return NoContent();
+            return CreatedAtAction(nameof(GetById), new { id = city.Id }, city);
         }
     }
 }
