@@ -1,24 +1,32 @@
+using System.Security.Claims;
+using Microsoft.AspNetCore.Http;
+
 namespace backend.Helpers
 {
     public static class ControllerHelpers
     {
-        public static int? ResolveUserId(HttpRequest request, int? fallback = null)
+        public static int? ResolveUserId(HttpRequest request)
         {
-            if (request.Headers.TryGetValue("X-User-Id", out var headerValue)
-                && int.TryParse(headerValue.FirstOrDefault(), out var idFromHeader)
-                && idFromHeader > 0)
+            // 1. Nouvelle méthode avec JWT
+            var userIdClaim =
+                request.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier)?.Value
+                ?? request.HttpContext.User.FindFirst("sub")?.Value
+                ?? request.HttpContext.User.FindFirst("userId")?.Value;
+
+            if (!string.IsNullOrWhiteSpace(userIdClaim) &&
+                int.TryParse(userIdClaim, out int jwtUserId))
             {
-                return idFromHeader;
+                return jwtUserId;
             }
 
-            if (request.Query.TryGetValue("userId", out var queryValue)
-                && int.TryParse(queryValue.FirstOrDefault(), out var idFromQuery)
-                && idFromQuery > 0)
+            // 2. Ancienne méthode temporaire avec X-User-Id
+            if (request.Headers.TryGetValue("X-User-Id", out var headerUserId) &&
+                int.TryParse(headerUserId.ToString(), out int oldUserId))
             {
-                return idFromQuery;
+                return oldUserId;
             }
 
-            return fallback.HasValue && fallback.Value > 0 ? fallback : null;
+            return null;
         }
     }
 }
