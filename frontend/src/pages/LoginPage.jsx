@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { api } from "../services/api";
-import { setCurrentUser } from "../services/auth";
+import { setCurrentUser, setToken } from "../services/auth";
 
 export default function LoginPage() {
   const navigate = useNavigate();
@@ -24,6 +24,7 @@ export default function LoginPage() {
     try {
       setLoading(true);
       const data = await api.post("/auth/login", formData);
+      setToken(data.token);
       setCurrentUser(data.user);
       navigate("/dashboard");
     } catch (err) {
