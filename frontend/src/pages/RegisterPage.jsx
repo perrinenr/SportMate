@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { api } from "../services/api";
-import { setCurrentUser } from "../services/auth";
+import { setCurrentUser, setToken } from "../services/auth";
 
 export default function RegisterPage() {
   const navigate = useNavigate();
@@ -30,6 +30,8 @@ export default function RegisterPage() {
       setLoading(true);
       const payload = { ...formData, cityId: formData.cityId ? Number(formData.cityId) : null };
       const data = await api.post("/auth/register", payload);
+      setToken(data.token);
+      setCurrentUser(data.user);
       setCurrentUser(data.user);
       navigate("/dashboard");
     } catch (err) {
