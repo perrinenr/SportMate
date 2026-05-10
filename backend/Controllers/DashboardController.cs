@@ -1,5 +1,6 @@
+using System.Security.Claims;
 using backend.Data;
-using backend.Helpers;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -7,6 +8,7 @@ namespace backend.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
+    [Authorize]
     public class DashboardController : ControllerBase
     {
         private readonly AppDbContext _context;
@@ -19,8 +21,12 @@ namespace backend.Controllers
         [HttpGet]
         public async Task<IActionResult> GetDashboard()
         {
-            var currentUserId = ControllerHelpers.ResolveUserId(Request);
-            if (!currentUserId.HasValue) return BadRequest(new { message = "UserId is required." });
+            var currentUserId = GetCurrentUserId();
+
+            if (!currentUserId.HasValue)
+            {
+                return Unauthorized(new { message = "Invalid or missing token." });
+            }
 
             var user = await _context.Users
                 .Include(u => u.City)
@@ -40,12 +46,19 @@ namespace backend.Controllers
                 })
                 .FirstOrDefaultAsync();
 
-            if (user == null) return NotFound(new { message = "User not found." });
+            if (user == null)
+            {
+                return NotFound(new { message = "User not found." });
+            }
 
             var totalMatches = await _context.Matches.CountAsync();
             var totalTeams = await _context.Teams.CountAsync();
-            var myMatches = await _context.MatchParticipants.CountAsync(mp => mp.UserId == currentUserId.Value);
-            var myTeams = await _context.TeamMembers.CountAsync(tm => tm.UserId == currentUserId.Value);
+
+            var myMatches = await _context.MatchParticipants
+                .CountAsync(mp => mp.UserId == currentUserId.Value);
+
+            var myTeams = await _context.TeamMembers
+                .CountAsync(tm => tm.UserId == currentUserId.Value);
 
             var upcomingMatches = await _context.Matches
                 .Include(m => m.Sport)
@@ -58,8 +71,8 @@ namespace backend.Controllers
                 {
                     m.Id,
                     m.Title,
-                    SportName = m.Sport.Name,
-                    CityName = m.City.Name,
+                    SportName = m.Sport != null ? m.Sport.Name : null,
+                    CityName = m.City != null ? m.City.Name : null,
                     m.MatchDate,
                     m.RequiredLevel,
                     ParticipantsCount = m.Participants.Count,
@@ -78,8 +91,8 @@ namespace backend.Controllers
                 {
                     t.Id,
                     t.Name,
-                    SportName = t.Sport.Name,
-                    CityName = t.City.Name,
+                    SportName = t.Sport != null ? t.Sport.Name : null,
+                    CityName = t.City != null ? t.City.Name : null,
                     MembersCount = t.Members.Count,
                     t.RequiredPlayers,
                     IsMember = t.Members.Any(m => m.UserId == currentUserId.Value)
@@ -99,6 +112,23 @@ namespace backend.Controllers
                 UpcomingMatches = upcomingMatches,
                 RecentTeams = recentTeams
             });
+        }
+
+        private int? GetCurrentUserId()
+        {
+            var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+
+            if (string.IsNullOrWhiteSpace(userIdClaim))
+            {
+                return null;
+            }
+
+            if (!int.TryParse(userIdClaim, out int userId))
+            {
+                return null;
+            }
+
+            return userId;
         }
     }
 }
