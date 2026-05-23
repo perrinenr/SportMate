@@ -1,14 +1,14 @@
 /*
-AppDbContext.cs est le fichier qui relie ton backend C# à ta base de données SQL Server.
+AppDbContext.cs est le fichier qui fais un lien entre ton backend C# et ta base de données SQL Server.
 Il dit à Entity Framework : Voici mes tables, voici les relations entre elles, voici les règles de suppression, et voici les colonnes qui doivent être uniques.
 Une entity, c’est une classe C# que Entity Framework utilise comme modèle pour une table de la base de données. User est une entity
 */
-using Microsoft.EntityFrameworkCore;//Entity Framework Core est l’outil qui permet à C# de parler avec la base de données sans écrire directement beaucoup de SQL.
+using Microsoft.EntityFrameworkCore;//Entity Framework Core permet à C# de parler avec la base de données sans écrire directement beaucoup de SQL.
 using backend.Models;//permet d'utiliser les tables User, Team, Match...
 
-namespace backend.Data//?
+namespace backend.Data
 {
-    public class AppDbContext : DbContext //AppDbContext hérite de DbContext
+    public class AppDbContext : DbContext //cette classe represente la db de mon code C#
     {
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options) { }
 

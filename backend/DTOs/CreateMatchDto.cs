@@ -1,6 +1,6 @@
-using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations;//system librery .NET - namespace .NET fiyo validation attribute
 
-namespace backend.DTOs
+namespace backend.DTOs//pr organiser
 {
     public class CreateMatchDto
     {
